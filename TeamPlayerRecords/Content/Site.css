@@ -22,3 +22,54 @@ select,
 textarea {
     max-width: 280px;
 }
+/* Bonus Point 1 - Custom Css Styles Added */
+.jumbotron {
+    box-shadow: 5px 5px #f5c783, 10px 10px #ffeb3b6b;
+}
+
+.btn {
+    box-shadow: 4px 5px #cec3b2;
+}
+
+.jumbotron h1 {
+    font-family: cursive;
+}
+
+p {
+    font-size: 17px;
+    line-height: 2em;
+}
+
+.halfwidth-section h2 {
+    border-left: solid 4px red;
+    padding-left: 5px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: black;
+    font-size: 15px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: black;
+    font-size: 25px;
+}
+
+.navbar-inverse {
+    background-color: #D3D3D3;
+    border-color: white;
+}
+
+footer {
+    background: #D3D3D3;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 20px;
+}
+
+.copyright {
+    font-weight: bold;
+}
