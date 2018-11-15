@@ -14,6 +14,7 @@ namespace TeamPlayerRecords.Controllers
     {
         private Model1 db = new Model1();
 
+        [AllowAnonymous]
         // GET: TeamPlayers
         public ActionResult Index()
         {
@@ -36,6 +37,7 @@ namespace TeamPlayerRecords.Controllers
             return View(teamPlayer);
         }
 
+        [Authorize]
         // GET: TeamPlayers/Create
         public ActionResult Create()
         {
@@ -43,6 +45,7 @@ namespace TeamPlayerRecords.Controllers
             return View();
         }
 
+        [Authorize]
         // POST: TeamPlayers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -61,6 +64,7 @@ namespace TeamPlayerRecords.Controllers
             return View(teamPlayer);
         }
 
+        [Authorize]
         // GET: TeamPlayers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -77,6 +81,7 @@ namespace TeamPlayerRecords.Controllers
             return View(teamPlayer);
         }
 
+        [Authorize]
         // POST: TeamPlayers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -94,6 +99,7 @@ namespace TeamPlayerRecords.Controllers
             return View(teamPlayer);
         }
 
+        [Authorize]
         // GET: TeamPlayers/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -109,6 +115,7 @@ namespace TeamPlayerRecords.Controllers
             return View(teamPlayer);
         }
 
+        [Authorize]
         // POST: TeamPlayers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
