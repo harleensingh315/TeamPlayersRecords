@@ -57,12 +57,13 @@ namespace TeamPlayerRecords
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
+            
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "985753310037-ao73hn16lpibnam580u2l4itu6c0c10f.apps.googleusercontent.com",
+                ClientSecret = "uTuxijsm2GOSoWcZM_DKO5d6"
+            });
         }
     }
 }
