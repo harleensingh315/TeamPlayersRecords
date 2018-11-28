@@ -12,13 +12,24 @@ namespace TeamPlayerRecords.Controllers
 {
     public class TeamsController : Controller
     {
-        private Model1 db = new Model1();
+        private ITeamMock db;
+
+        public TeamsController()
+        {
+            this.db = new EFTeams();
+        }
+        public TeamsController(ITeamMock teamsmock)
+        {
+            this.db = teamsmock;
+        }
+
 
         [AllowAnonymous]
         // GET: Teams
         public ActionResult Index()
         {
-            return View(db.Teams.ToList());
+            var teams = db.Teams.ToList();
+            return View("Index", teams);
         }
 
         // GET: Teams/Details/5
@@ -26,21 +37,22 @@ namespace TeamPlayerRecords.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
+
             }
-            Team team = db.Teams.Find(id);
+            Team team = db.Teams.SingleOrDefault(x => x.ID == id);
             if (team == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(team);
+            return View("Details", team);
         }
 
         [Authorize]
         // GET: Teams/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         [Authorize]
@@ -53,12 +65,11 @@ namespace TeamPlayerRecords.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
-                db.SaveChanges();
+                db.Save(team);
                 return RedirectToAction("Index");
             }
 
-            return View(team);
+            return View("Create", team);
         }
 
         [Authorize]
@@ -67,14 +78,14 @@ namespace TeamPlayerRecords.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            Team team = db.Teams.Find(id);
+            Team team = db.Teams.SingleOrDefault(x => x.ID == id);
             if (team == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(team);
+            return View("Edit", team);
         }
 
         [Authorize]
@@ -87,11 +98,10 @@ namespace TeamPlayerRecords.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Save(team);
                 return RedirectToAction("Index");
             }
-            return View(team);
+            return View("Edit", team);
         }
 
         [Authorize]
@@ -100,35 +110,38 @@ namespace TeamPlayerRecords.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            Team team = db.Teams.Find(id);
+            Team team = db.Teams.SingleOrDefault(x => x.ID == id);
             if (team == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(team);
+            return View("Delete", team);
         }
 
         [Authorize]
         // POST: Teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
-            db.SaveChanges();
+            if (id == null)
+            {
+                return View("Error");
+
+            }
+            var team = db.Teams.SingleOrDefault(x => x.ID == id);
+            if (team == null)
+            {
+                return View("Error");
+
+            }
+            db.Delete(team);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }
